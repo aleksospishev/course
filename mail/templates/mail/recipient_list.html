@@ -1,0 +1,28 @@
+{% extends 'mail/base.html' %}
+{% block title %}Домашняя страница{% endblock %}
+{% block content %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    {%  if user.is_authenticated %}
+    <a class="btn btn-primary" href="{% url 'mail:recipient-create' %}" role="button">Добавить получателя рассылки </a>
+    {% endif %}
+</div>
+<div class="container py-3">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {% for recipient in object_list %}
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <a class="text-muted" href="/recipient/{{ recipient.id }}/"><h4 class="my-0 font-weight-normal">{{ recipient.name }}</h4></a>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                            <li>- {{ recipient.comment|truncatechars:100 }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

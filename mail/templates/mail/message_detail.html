@@ -1,0 +1,22 @@
+{% extends "mail/base.html" %}
+{% block title %}{{ object.name }}{% endblock %}
+{% block content %}
+    <!
+    <div class="container py-3">
+        <div class="text-center">
+            <div class="col">
+                <div class="card-header py-3">
+                    <h4 class="my-0 font-weight-normal">{{ object.subject }}</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>- Сообщение: {{ object.content }} </li>
+                    </ul>
+                    <a type="button" class="btn btn-primary " href="{% url "mail:message-update" message.pk %}"> Изменить</a>
+                    <a type="button" class="btn btn-primary " href="{% url "mail:message-delete" message.pk %}"> Удалить</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

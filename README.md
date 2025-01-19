@@ -1,2 +1,1 @@
-# course
- 
+# course_django
