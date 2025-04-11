@@ -1,0 +1,40 @@
+{% extends "mail/base.html" %}
+{% block title %}{{ object.message }}{% endblock %}
+{% block content %}
+    <!
+    <div class="container py-3">
+        <div class="text-center">
+            <div class="col">
+                <div class="card-header py-3">
+                    <h4 class="my-0 font-weight-normal">Рассылка сообщения <a href="/message/{{sending.message.id}}"> {{ sending.message.subject }} </a> </h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>- старт: {{ sending.first_sending }} </li>
+                        <li>- окончание: {{ sending.stop_sending }} </li>
+                        <li>- статус: {{ sending.status }}</li>
+                        {%  for recipient in sending.recipients.all %}
+                            <li>- получатель: <a href="/recipient/{{recipient.id}}"> {{recipient.name}} </a> </li>
+                        {%  endfor %}
+                        <li>- сообщение: {{ sending.message.content }} </li>
+                    </ul>
+                    <form method="post" action="{% url 'mail:send-message' sending.pk %}">
+                    {% csrf_token %}
+                    <button class="btn bg-dark-subtle mb-1 mt-1"
+                            type="submit"> Рассылка
+                    </button>
+                </form>
+                    <form method="post" action="{% url 'mail:send-message-cancel' sending.pk %}">
+                    {% csrf_token %}
+                    <button class="btn bg-dark-subtle mb-1 mt-1"
+                            type="submit"> Отмена рассылки
+                    </button>
+                </form>
+                    <a type="button" class="btn btn-primary " href="{% url "mail:sending-update" sending.pk %}"> Изменить</a>
+                    <a type="button" class="btn btn-primary " href="{% url "mail:sending-delete" sending.pk %}"> Удалить</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

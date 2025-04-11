@@ -1,0 +1,43 @@
+<!-- home.html -->
+{% extends 'mail/base.html' %}
+{% block title %}Главная страница{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="d-flex justify-content-evenly">
+        <ul class="list-group" style="width: 800px;">
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary-subtle">
+                Общее количество созданных рассылок
+                <span class="badge text-bg-primary rounded-pill">{{ sendings_total }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Общее количество активных рассылок
+                <span class="badge text-bg-primary rounded-pill">{{ sendings_active_count }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary-subtle">
+                Общее количество получателей
+                <span class="badge text-bg-primary rounded-pill">{{ recipients_total }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container py-3">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {% for sending in sendings %}
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <ul class="text-muted" >
+                                <h4 class="my-0 font-weight-normal">{{ sending.message.subject }}</h4>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <a href='{% url 'mail:sending' sending.pk %}' class="btn btn-outline-primary">Посмотреть</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'mail/base.html' %}
+{% load image_tags %}
+{% block title %}{{ object.email }}{% endblock %}
+{% block content %}
+    <div class="container py-3">
+        <div class="text-center">
+            <div class="col">
+                <div class="card-header py-3">
+                    <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
+                    <img class="rounded" width="200" height="200" src="{{ object.avatar | image_path }}" alt="{{ object.name }}" class="card-img-top" size="200px">
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ object.email }}<small
+                            class="text-body-secondary fw-light"> </small></h1>
+                    <h3 class="card-title pricing-card-title"> Количество попыток рассылки:  {{ object.amount_attempt }}<small
+                            class="text-body-secondary fw-light"> </small></h3>
+
+                    <h3 class="card-title pricing-card-title"> Количество неудачных попыток рассылки:   {{ object.amount_failed }}<small
+                            class="text-body-secondary fw-light"> </small></h3>
+
+                    <a type="button" class="btn btn-primary " href="{% url 'users:user-update' object.pk %}"> Изменить пользователя </a>
+                    {% if user.is_superuser %}
+                    <a type="button" class="btn btn-primary " href="{% url 'users:user-delete' object.pk %}"> Удалить </a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
